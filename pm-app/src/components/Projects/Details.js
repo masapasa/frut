@@ -20,7 +20,7 @@ class ProjectDetails extends React.Component {
       .then(response => {
         this.setState({
           project: response.data
-        },()=>console.log(this.state));
+        });
       });
   };
 
@@ -42,8 +42,7 @@ class ProjectDetails extends React.Component {
       .then(response => {
         this.setState({
           project: response.data
-        },()=>console.log(this.state));
-      });
+        })});
   }
 
   componentDidMount() {
@@ -56,7 +55,7 @@ class ProjectDetails extends React.Component {
 
     let editBlock = <></>;
 
-    if (this.props.user && this.props.user._id === project.owner) {
+    if (this.props.user && this.props.user._id === project.user) {
       editBlock = (
         <div>
           <EditProject project={project} getDetails={this.getProject} />
@@ -82,8 +81,8 @@ class ProjectDetails extends React.Component {
           project.issues.map(issue => {
             return (
               <div key={issue._id}>
-              {issue.title}
-                
+              <Link to={`/issues/${issue._id}`}>{issue.title} {issue.description}</Link>
+              
               <div>
                 <CommList issueId={issue._id} clicked={this.handleClick}/>
               </div>
