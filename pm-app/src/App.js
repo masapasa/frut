@@ -70,7 +70,11 @@ class App extends React.Component {
             path="/projects"
           />
 
-          <Route path="/issues/:issueId" component={IssueDetails} />
+          <Route path="/issues/:issueId"
+          render={props => (
+            <IssueDetails {...props} user={this.state.loggedIn} />
+          )}
+           />
         </Switch>
       </div>
     );

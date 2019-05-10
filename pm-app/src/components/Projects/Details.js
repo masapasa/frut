@@ -54,7 +54,7 @@ class ProjectDetails extends React.Component {
  
 
     let editBlock = <></>;
-
+    
     if (this.props.user && this.props.user._id === project.user) {
       editBlock = (
         <div>

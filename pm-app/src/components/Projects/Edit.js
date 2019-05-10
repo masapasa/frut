@@ -23,10 +23,7 @@ class EditProject extends React.Component {
       )
       .then(() => {
         this.props.getDetails();
-        this.setState({
-          title: "",
-          description: ""
-        });
+
       });
   };
 

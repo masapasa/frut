@@ -10,23 +10,18 @@ class EditIssue extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const id = this.props.issue._id;
-
+    const id = this.props.id
     axios
       .put(
         `http://localhost:5000/api/issues/${id}`,
         {
           title: this.state.title,
           description: this.state.description
-        },
+        }, 
         { withCredentials: true }
       )
       .then(() => {
-        this.props.getDetails();
-        this.setState({
-          title: "",
-          description: ""
-        });
+        this.props.issueDetails()
       });
   };
 
@@ -35,6 +30,7 @@ class EditIssue extends React.Component {
     const value = event.target.value;
 
     this.setState({ [name]: value });
+    console.log(this.state.title)
   };
 
   render() {
