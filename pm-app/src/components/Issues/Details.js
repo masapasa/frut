@@ -26,13 +26,10 @@ class IssueDetails extends React.Component {
     
     render() {
       const {title, description, comments} = this.state
-      console.log(comments)
     return (
       <div>
         <h1>{title}</h1>
         <p>{description}</p>
-        {/* <p>{comments.map(el => el.content)}</p> */}
-          {/* {console.log(comments.map(el => el.content))} */}
         <div>
         {comments && comments.map(el => {
                   return(
