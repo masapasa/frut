@@ -33,6 +33,7 @@ class CommList extends React.Component {
       )
       .then(() => {
         this.setState({ content: "", displayForm: false });
+        this.props.clicked()
        
       });
 

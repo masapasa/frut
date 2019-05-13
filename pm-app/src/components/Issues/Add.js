@@ -43,7 +43,7 @@ class AddIssue extends React.Component {
     return (
       <div>
         <hr />
-        <button className="btn" onClick={this.toggleForm}>
+        <button className="btn btn-primary" onClick={this.toggleForm}>
           Add Issue
         </button>
         {this.state.displayForm && (

@@ -4,10 +4,12 @@ import axios from "axios";
 class EditProject extends React.Component {
   state = {
     title: "",
-    description: ""
+    description: "",
+    displayForm: false
   };
 
   handleSubmit = event => {
+    console.log('submitted')
     event.preventDefault();
 
     const id = this.props.project._id;
@@ -23,8 +25,11 @@ class EditProject extends React.Component {
       )
       .then(() => {
         this.props.getDetails();
+        this.setState({ title: "", description: "", displayForm: false })
 
+        this.props.clicked()
       });
+
   };
 
   handleChange = event => {
@@ -38,7 +43,7 @@ class EditProject extends React.Component {
     return (
       <div>
         <hr />
-        <h3>Edit form</h3>
+        
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label>title:</label>
@@ -60,11 +65,8 @@ class EditProject extends React.Component {
               name="description"
             />
           </div>
-          <input
-            className="btn btn-primary"
-            type="submit"
-            value="Update Project"
-          />
+          <button className="btn btn-primary"  >Update Project</button>
+
         </form>
       </div>
     );

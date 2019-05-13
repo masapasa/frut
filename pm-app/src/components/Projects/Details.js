@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import EditProject from "./Edit";
 import AddIssue from "../Issues/Add";
-import CommList from "../Comments/CommList";
 import axios from "axios";
 import Invitation from "../Comments/Invitation";
 
@@ -53,6 +52,7 @@ class ProjectDetails extends React.Component {
     })
   }
   showInviteBlock = () => {
+    console.log("hi")
     this.setState({
       inviteBlock: !this.state.inviteBlock
     })
@@ -70,7 +70,7 @@ class ProjectDetails extends React.Component {
     if (this.props.user && this.props.user._id === project.user) {
       editBlock = (
         <div>
-          <EditProject project={project} getDetails={this.getProject} />
+          <EditProject project={project} getDetails={this.getProject} clicked={this.showEditBlock}/>
           <button
             style={{ marginTop: "10px" }}
             className="btn btn-danger"
@@ -103,18 +103,6 @@ class ProjectDetails extends React.Component {
             return (
               <div key={issue._id}>
               <Link to={`/issues/${issue._id}`}>{issue.title} {issue.description}</Link>
-              
-             
-              <div>
-                <CommList issueId={issue._id} clicked={this.handleClick}/>
-              </div>
-                {issue.comments && issue.comments.map(el => {
-                  return(
-                    <div key={el._id} >
-                      {el.content}
-                    </div>
-                  )
-                })}
               </div>
               
             );

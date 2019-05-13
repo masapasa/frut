@@ -37,17 +37,7 @@ class IssueDetails extends React.Component {
           editBlock: !this.state.editBlock
         })
       }
-      handleClick = ()=>{
-        const id = this.props.match.params.id;
-        axios
-          .get(`http://localhost:5000/api/projects/${id}`, {
-            withCredentials: true
-          })
-          .then(response => {
-            this.setState({
-              project: response.data
-            })});
-      }
+     
       
       render() {
         const {_id, title, description, comments, user} = this.state
@@ -56,7 +46,7 @@ class IssueDetails extends React.Component {
     if (this.props.user && this.props.user._id === user) {
       editBlock = (
         <div>
-          <EditIssue  id={_id} issueDetails={this.getIssue} />
+          <EditIssue  id={_id} issueDetails={this.getIssue} clicked={this.showEditBlock} />
           
         </div>
       );
@@ -67,8 +57,7 @@ class IssueDetails extends React.Component {
         <h1>{title}</h1>
         <p>{description}</p>
         <div>
-          {console.log(this.state._id)}
-        <CommList issueId={this.state._id} clicked={this.handleClick} />
+        <CommList issueId={this.state._id} clicked={this.getIssue} />
         {comments && comments.map(comment => {
                   return(
                     <div key={comment._id} >
@@ -76,18 +65,6 @@ class IssueDetails extends React.Component {
                     </div>
                   )
                 })}
-        </div>
-        <div>
-        <div>
-                
-              </div>
-                {/* {issue.comments && issue.comments.map(el => {
-                  return(
-                    <div key={el._id} >
-                      {el.content}
-                    </div>
-                  )
-                })} */}
         </div>
         <div>
         {this.state.editBlock && <div> {editBlock} </div>}

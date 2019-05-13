@@ -1,11 +1,12 @@
 import React from "react";
-import { signup } from "../../services/auth";
+import { signup, upload } from "../../services/auth";
 
 class Signup extends React.Component {
   state = {
     username: "",
     password: "",
-    email:""
+    email:"",
+    imgPath: ""
   };
 
   handleChange = event => {
@@ -19,17 +20,28 @@ class Signup extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const { username, password, email } = this.state;
+    const { username, password, email, imgPath } = this.state;
 
-    signup(username, password, email).then(user => {
+    signup(username, password, email, imgPath).then(user => {
       this.props.setUser(user);
       this.setState({
         username: "",
         password: "",
-        email: ""
+        email: "",
+        imgPath:""
       });
     });
   };
+  handleUpload = event => {
+    const file = event.target.files[0];
+    console.log(file)
+    const data = new FormData();
+    data.append("imgPath", file);
+    upload(data).then(response => {
+      this.setState({ imgPath: response.secure_url });
+
+    });
+  }
 
   render() {
     return (
@@ -61,6 +73,9 @@ class Signup extends React.Component {
               type="text"
               name="email"
             />
+          </div>
+          <div><label>Photo</label>
+            <input type="file" name="photo" onChange={this.handleUpload} />
           </div>
           <input type="submit" value="signup" />
         </form>

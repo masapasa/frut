@@ -19,7 +19,7 @@ const login = (username, password) => {
 };
 
 const logout = () => {
-  return service.post("/logout").then(response => response.data);
+  return service.get("/logout").then(response => response.data);
 };
 
 const loggedin = () => {
@@ -31,4 +31,7 @@ return service
 .get('/users')
 .then(response => response.data);
 }
-export { signup, login, logout, loggedin, getUsers };
+const upload = data => {
+  return service.post("/upload", data).then(response => response.data)
+}
+export { signup, login, logout, loggedin, getUsers, upload };

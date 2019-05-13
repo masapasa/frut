@@ -4,7 +4,8 @@ import axios from "axios";
 class EditIssue extends React.Component {
   state = {
     title: "",
-    description: ""
+    description: "",
+    displayForm: false
   };
 
   handleSubmit = event => {
@@ -22,6 +23,7 @@ class EditIssue extends React.Component {
       )
       .then(() => {
         this.props.issueDetails()
+        this.props.clicked()
       });
   };
 
@@ -31,13 +33,17 @@ class EditIssue extends React.Component {
 
     this.setState({ [name]: value });
   };
+  toggleForm = () => {
+    this.setState({
+      displayForm: !this.state.displayForm
+    });
+  };
 
   render() {
     return (
       <div>
         <hr />
-        <h3>Edit form</h3>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} >
           <div className="form-group">
             <label>title:</label>
             <input

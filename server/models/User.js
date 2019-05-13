@@ -8,7 +8,7 @@ const userSchema = new Schema(
     email: { type: String, required: true, unique: true },
     firstName: { type: String },
     lastName: { type: String },
-    avatar: { type: String },
+    imgPath: { type: String },
     projects: [
       {
         type: [ Schema.Types.ObjectId ],
