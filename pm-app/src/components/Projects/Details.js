@@ -4,10 +4,13 @@ import EditProject from "./Edit";
 import AddIssue from "../Issues/Add";
 import CommList from "../Comments/CommList";
 import axios from "axios";
+import Invitation from "../Comments/Invitation";
 
 class ProjectDetails extends React.Component {
   state = {
-    project: {}
+    project: {},
+    editBlock: false,
+    inviteBlock: false
   };
 
   getProject = () => {
@@ -44,10 +47,19 @@ class ProjectDetails extends React.Component {
           project: response.data
         })});
   }
+  showEditBlock = () => {
+    this.setState({
+      editBlock: !this.state.editBlock
+    })
+  }
+  showInviteBlock = () => {
+    this.setState({
+      inviteBlock: !this.state.inviteBlock
+    })
+  }
 
   componentDidMount() {
-    this.getProject();
-  }
+    this.getProject();}
 
   render() {
     const { project } = this.state;
@@ -69,11 +81,20 @@ class ProjectDetails extends React.Component {
         </div>
       );
     }
+    let inviteBlock = <></>
+    if (this.props.user && this.props.user._id === project.user) {
+      inviteBlock = (
+        <div>
+          <Invitation />
+        </div>
+      )
+    }
 
     return (
       <div>
         <h1>{project.title}</h1>
         <p>{project.description}</p>
+        
         
 
         {project.issues && project.issues.length > 0 && <h3>issues</h3>}
@@ -83,6 +104,7 @@ class ProjectDetails extends React.Component {
               <div key={issue._id}>
               <Link to={`/issues/${issue._id}`}>{issue.title} {issue.description}</Link>
               
+             
               <div>
                 <CommList issueId={issue._id} clicked={this.handleClick}/>
               </div>
@@ -97,11 +119,23 @@ class ProjectDetails extends React.Component {
               
             );
           })}
+        {this.state.editBlock && <div> {editBlock} </div>} 
 
-        {editBlock}
-
+        <button style={{ marginTop: "10px" }}
+                        className="btn btn-danger"
+                        onClick={this.showEditBlock} >Edit Project</button>
+        <div>
+          <button style={{ marginTop: "10px" }}
+            className="btn btn-primary"
+            onClick={this.showInviteBlock}>Invite</button>
+          
+        </div>
+        {this.state.inviteBlock && <div> {inviteBlock} </div>}
+                        
+                         
         <AddIssue project={project} getProject={this.getProject} />
         <br />
+        
 
         <Link to="/projects">Back</Link>
       </div>

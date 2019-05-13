@@ -13,9 +13,14 @@ class CommList extends React.Component {
     this.setState({ [name]: value });
   };
 
+  componentDidUpdate(prevState){
+    if(prevState.issueId !== this.props.issueId){
+      this.setState({issueId:this.props.issueId})
+    }
+  }
+
   handleSubmit = event => {
     event.preventDefault();
-
   
     axios
       .post(
@@ -28,7 +33,7 @@ class CommList extends React.Component {
       )
       .then(() => {
         this.setState({ content: "", displayForm: false });
-        this.props.clicked()
+       
       });
 
   };

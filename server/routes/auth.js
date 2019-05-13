@@ -62,6 +62,15 @@ router.post('/signup', async (req, res) => {
   })
 })
 
+
+router.get('/users', (req, res) => {
+  User.find().then(users => {
+    res.json(users)
+  }).catch(error => {
+    res.json(error)
+  })
+})
+
 router.post('/edit/:_id', async (req, res) => {
   const { _id } = req.params
   const { username, email, firstName, lastName, avatar, projects  } = req.body

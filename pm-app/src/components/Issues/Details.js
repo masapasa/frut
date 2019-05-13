@@ -1,13 +1,15 @@
 import React from "react";
 import axios from "axios";
 import EditIssue from './Edit'
+import CommList from '../Comments/CommList'
 
 class IssueDetails extends React.Component {
   state = {
     title: "",
     description: "",
     comments: "",
-    _id: ""
+    _id: "",
+    editBlock: false
   };
 
   componentDidMount() {
@@ -30,6 +32,22 @@ class IssueDetails extends React.Component {
           });
         });
       }
+      showEditBlock = () => {
+        this.setState({
+          editBlock: !this.state.editBlock
+        })
+      }
+      handleClick = ()=>{
+        const id = this.props.match.params.id;
+        axios
+          .get(`http://localhost:5000/api/projects/${id}`, {
+            withCredentials: true
+          })
+          .then(response => {
+            this.setState({
+              project: response.data
+            })});
+      }
       
       render() {
         const {_id, title, description, comments, user} = this.state
@@ -49,16 +67,33 @@ class IssueDetails extends React.Component {
         <h1>{title}</h1>
         <p>{description}</p>
         <div>
-        {comments && comments.map(el => {
+          {console.log(this.state._id)}
+        <CommList issueId={this.state._id} clicked={this.handleClick} />
+        {comments && comments.map(comment => {
                   return(
-                    <div key={el._id} >
-                      {el.content}
+                    <div key={comment._id} >
+                      {comment.content}
                     </div>
                   )
                 })}
         </div>
         <div>
-        {editBlock}
+        <div>
+                
+              </div>
+                {/* {issue.comments && issue.comments.map(el => {
+                  return(
+                    <div key={el._id} >
+                      {el.content}
+                    </div>
+                  )
+                })} */}
+        </div>
+        <div>
+        {this.state.editBlock && <div> {editBlock} </div>}
+        <button style={{ marginTop: "10px" }}
+                        className="btn btn-danger"
+                        onClick={this.showEditBlock} >Edit Issue</button>
         </div>
       </div>
     );

@@ -26,4 +26,9 @@ const loggedin = () => {
   return service.get("/loggedin").then(response => response.data);
 };
 
-export { signup, login, logout, loggedin };
+const getUsers = () => {
+return service
+.get('/users')
+.then(response => response.data);
+}
+export { signup, login, logout, loggedin, getUsers };

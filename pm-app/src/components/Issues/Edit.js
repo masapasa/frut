@@ -30,7 +30,6 @@ class EditIssue extends React.Component {
     const value = event.target.value;
 
     this.setState({ [name]: value });
-    console.log(this.state.title)
   };
 
   render() {
