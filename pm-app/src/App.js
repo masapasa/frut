@@ -8,7 +8,8 @@ import Signup from "./components/Auth/Signup";
 import Login from "./components/Auth/Login";
 import { loggedin } from "./services/auth";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import LandingPage from "./components/LandingPage";
+import Profile from "./components/Profile";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -41,18 +42,30 @@ class App extends React.Component {
         <Navbar setUser={this.setUser} loggedIn={this.state.loggedIn} />
 
         <Switch>
+        <Route
+            exact
+            path="/"
+            //  component={Signup}
+            //  render allows us to pass props to our component inside Routes
+            render={() => <LandingPage setUser={this.setUser} />}
+          />
           <Route
             exact
             path="/signup"
             //  component={Signup}
             //  render allows us to pass props to our component inside Routes
-            render={() => <Signup setUser={this.setUser} />}
+            render={(props) => <Signup {...props} setUser={this.setUser} />}
           />
 
           <Route
             exact
             path="/login"
             render={() => <Login setUser={this.setUser} />}
+          />
+          <Route
+            exact
+            path="/profile"
+            render={(props) => <Profile {...props} user={this.state.loggedIn} />}
           />
 
           <Route

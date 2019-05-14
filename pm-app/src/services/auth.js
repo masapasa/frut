@@ -6,9 +6,9 @@ const service = axios.create({
   withCredentials: true
 });
 
-const signup = (username, password, email) => {
+const signup = (username, password, email, imgPath) => {
   return service
-    .post("/signup", { username, password, email })
+    .post("/signup", { username, password, email, imgPath })
     .then(response => response.data);
 };
 
@@ -34,4 +34,7 @@ return service
 const upload = data => {
   return service.post("/upload", data).then(response => response.data)
 }
-export { signup, login, logout, loggedin, getUsers, upload };
+const getProject = () => {
+  return service.get('/userprojects').then(res => res.data)
+}
+export { signup, login, logout, loggedin, getUsers, upload, getProject };

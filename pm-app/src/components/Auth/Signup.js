@@ -29,7 +29,8 @@ class Signup extends React.Component {
         password: "",
         email: "",
         imgPath:""
-      });
+      })
+      this.props.history.push('/profile')
     });
   };
   handleUpload = event => {
@@ -38,8 +39,7 @@ class Signup extends React.Component {
     const data = new FormData();
     data.append("imgPath", file);
     upload(data).then(response => {
-      this.setState({ imgPath: response.secure_url });
-
+      this.setState({ imgPath: response.imgPath });
     });
   }
 
@@ -75,7 +75,7 @@ class Signup extends React.Component {
             />
           </div>
           <div><label>Photo</label>
-            <input type="file" name="photo" onChange={this.handleUpload} />
+            <input type="file" name="imgPath" onChange={this.handleUpload} />
           </div>
           <input type="submit" value="signup" />
         </form>

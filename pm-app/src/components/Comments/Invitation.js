@@ -23,7 +23,7 @@ class Invitation extends React.Component {
     return (
     <React.Fragment>
       {users.map(user=> <a href={`mailto:${user.email}`}>
-      <div>{user.username}</div>
+      <div key={user._id} >{user.username}</div>
       </a>)}</React.Fragment>
   )
   }};

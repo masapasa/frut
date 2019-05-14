@@ -35,7 +35,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-  const { username, password, email, firstName, lastName, avatar, projects  } = req.body
+  const { username, password, email, firstName, lastName, imgPath, projects  } = req.body
   if (username === '' || password === '') {
     return res.status(422).json({ message: 'Indicate username and password' })
   }
@@ -54,7 +54,7 @@ router.post('/signup', async (req, res) => {
     email: email,
     firstName: firstName,
     lastName:lastName,
-    avatar: avatar,
+    imgPath: imgPath,
     projects: projects 
   })
   req.login(newUser, () => {
@@ -73,26 +73,27 @@ router.get('/users', (req, res) => {
 
 router.post('/edit/:_id', async (req, res) => {
   const { _id } = req.params
-  const { username, email, firstName, lastName, avatar, projects  } = req.body
-  const updateUser = await User.findByIdAndUpdate(_id, { username, email, firstName, lastName, avatar, projects  }, { new: true })
+  const { username, email, firstName, lastName, imgPath, projects  } = req.body
+  const updateUser = await User.findByIdAndUpdate(_id, { username, email, firstName, lastName, imgPath, projects  }, { new: true })
   return res.status(200).json(updateUser)
 })
 
 const uploader = require('../config/cloudinary-setup')
-router.post('/upload', uploader.single('image'), (req, res) => {
+router.post('/upload', uploader.single('imgPath'), (req, res) => {
   // console.log(req.user)
   if (!req.file) {
     // next(new Error('No file uploaded'))
     return res.status(500).json({ message: 'No file uploaded' })
   }
 
-  User.findByIdAndUpdate(req.user._id, { image: req.file.secure_url }, { new: true })
-    .then((udpatedUser) => {
-      return res.json(udpatedUser)
-    })
-    .catch((err) => {
-      return res.status(500).json({ message: `Error updating user => ${err}` })
-    })
+  res.json({imgPath: req.file.secure_url})
+  // User.findByIdAndUpdate(req.user._id, { imgPath: req.file.secure_url }, { new: true })
+  //   .then((udpatedUser) => {
+  //     return res.json(udpatedUser)
+  //   })
+  //   .catch((err) => {
+  //     return res.status(500).json({ message: `Error updating user => ${err}` })
+  //   })
 })
 
 router.get('/logout', (req, res) => {

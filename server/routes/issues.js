@@ -21,7 +21,7 @@ const user = req.user._id
         });
     })
   })
-
+  
 router.get("/issues/:id", (req, res) => {
   Issue.findById(req.params.id)
     .populate("comments").then(issue => {
