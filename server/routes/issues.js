@@ -31,6 +31,14 @@ router.get("/issues/:id", (req, res) => {
       res.json(error);
     });
 });
+router.get("/issues", (req, res) => {
+  Issue.find({type: req.query.type}).then(issue => {
+      res.json(issue);
+    })
+    .catch(error => {
+      res.json(error);
+    });
+});
 router.put("/issues/:id", (req, res) => {
   Issue.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {

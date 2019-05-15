@@ -37,4 +37,7 @@ const upload = data => {
 const getProject = () => {
   return service.get('/userprojects').then(res => res.data)
 }
-export { signup, login, logout, loggedin, getUsers, upload, getProject };
+const getIssues= (type) => {
+  return service.get(`/issues?type=${type}`).then(res => res.data)
+}
+export { signup, login, logout, loggedin, getUsers, upload, getProject, getIssues };

@@ -42,7 +42,7 @@ class App extends React.Component {
         <Navbar setUser={this.setUser} loggedIn={this.state.loggedIn} />
 
         <Switch>
-        <Route
+          <Route
             exact
             path="/"
             //  component={Signup}
@@ -84,10 +84,10 @@ class App extends React.Component {
           />
 
           <Route path="/issues/:issueId"
-          render={props => (
-            <IssueDetails {...props} user={this.state.loggedIn} />
-          )}
-           />
+            render={props => (
+              <IssueDetails {...props} user={this.state.loggedIn} />
+            )}
+          />
         </Switch>
       </div>
     );
