@@ -18,7 +18,7 @@ class EditIssue extends React.Component {
     const id = this.props.id
     axios
       .put(
-        `http://localhost:5000/api/issues/${id}`,
+        (process.env.HEROKU_URL || "http://localhost:5000") + `/api/issues/${id}`,
         {
           title: this.state.title,
           description: this.state.description,
@@ -26,7 +26,7 @@ class EditIssue extends React.Component {
           status: this.state.status,
           priority: this.state.priority,
           severity: this.state.severity
-        }, 
+        },
         { withCredentials: true }
       )
       .then(() => {
@@ -73,38 +73,38 @@ class EditIssue extends React.Component {
             />
           </div>
           <div>
-              <label>type</label>
-                <select name="type" onChange={this.handleChange}>
-                  <option  value="bug/issue">bug/issue</option>
-                  <option  value="enhancement">enhancement</option>
-                  <option  value="feature">feature</option>
-                  <option  value="documentation">documentation</option>
-                </select></div>
-                <div>
-              <label>status</label>
-                <select name="status" onChange={this.handleChange}>
-                  <option  value="open">open</option>
-                  <option  value="assigned">assigned</option>
-                  <option  value="duplicated">duplicated</option>
-                  <option  value="closed">closed</option>
-                  <option  value="pending review'">pending review'</option>
-                </select></div>
-                <div>
-              <label>priority</label>
-                <select name="priority" onChange={this.handleChange}>
-                  <option  value="immediate">immediate</option>
-                  <option  value="high">high</option>
-                  <option  value="medium">medium</option>
-                  <option  value="low">low</option>
-                </select></div>
-                <div>
-              <label>severity</label>
-                <select name="severity" onChange={this.handleChange}>
-                  <option  value="critical">critical</option>
-                  <option  value="major">major</option>
-                  <option  value="minor">minor</option>
-                  <option  value="low-impact">low-impact</option>
-                </select></div>
+            <label>type</label>
+            <select name="type" onChange={this.handleChange}>
+              <option value="bug/issue">bug/issue</option>
+              <option value="enhancement">enhancement</option>
+              <option value="feature">feature</option>
+              <option value="documentation">documentation</option>
+            </select></div>
+          <div>
+            <label>status</label>
+            <select name="status" onChange={this.handleChange}>
+              <option value="open">open</option>
+              <option value="assigned">assigned</option>
+              <option value="duplicated">duplicated</option>
+              <option value="closed">closed</option>
+              <option value="pending review'">pending review'</option>
+            </select></div>
+          <div>
+            <label>priority</label>
+            <select name="priority" onChange={this.handleChange}>
+              <option value="immediate">immediate</option>
+              <option value="high">high</option>
+              <option value="medium">medium</option>
+              <option value="low">low</option>
+            </select></div>
+          <div>
+            <label>severity</label>
+            <select name="severity" onChange={this.handleChange}>
+              <option value="critical">critical</option>
+              <option value="major">major</option>
+              <option value="minor">minor</option>
+              <option value="low-impact">low-impact</option>
+            </select></div>
           <input
             className="btn btn-primary"
             type="submit"

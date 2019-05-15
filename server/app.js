@@ -15,7 +15,7 @@ var Loggerr = require('loggerr')
 const log = new Loggerr()
 
 mongoose
-  .connect('mongodb://localhost/tracker', { useNewUrlParser: true, useCreateIndex: true })
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost/tracker', { useNewUrlParser: true, useCreateIndex: true })
   .then((x) => {
     // console.log(` Database name: "${x.connections[0].name}"`)
     log.info('Connected to Mongo!', {
@@ -78,6 +78,9 @@ app.use("/api", comments);
 // const sendEmail = require("./routes/send-email");
 // app.use("/api", sendEmail);
 
-
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 module.exports = app

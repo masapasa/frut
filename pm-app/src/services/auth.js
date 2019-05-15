@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: (process.env.HEROKU_URL || "http://localhost:5000") + "/api",
   withCredentials: true
 });
 
@@ -27,9 +27,9 @@ const loggedin = () => {
 };
 
 const getUsers = () => {
-return service
-.get('/users')
-.then(response => response.data);
+  return service
+    .get('/users')
+    .then(response => response.data);
 }
 const upload = data => {
   return service.post("/upload", data).then(response => response.data)
@@ -37,7 +37,7 @@ const upload = data => {
 const getProject = () => {
   return service.get('/userprojects').then(res => res.data)
 }
-const getIssues= (type) => {
+const getIssues = (type) => {
   return service.get(`/issues?type=${type}`).then(res => res.data)
 }
 export { signup, login, logout, loggedin, getUsers, upload, getProject, getIssues };

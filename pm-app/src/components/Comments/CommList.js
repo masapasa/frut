@@ -5,7 +5,7 @@ class CommList extends React.Component {
   state = {
     content: "",
     displayForm: false,
-    issueId:this.props.issueId
+    issueId: this.props.issueId
   };
 
   handleChange = event => {
@@ -13,18 +13,18 @@ class CommList extends React.Component {
     this.setState({ [name]: value });
   };
 
-  componentDidUpdate(prevState){
-    if(prevState.issueId !== this.props.issueId){
-      this.setState({issueId:this.props.issueId})
+  componentDidUpdate(prevState) {
+    if (prevState.issueId !== this.props.issueId) {
+      this.setState({ issueId: this.props.issueId })
     }
   }
 
   handleSubmit = event => {
     event.preventDefault();
-  
+
     axios
       .post(
-        "http://localhost:5000/api/comments",
+        (process.env.HEROKU_URL || "http://localhost:5000") + "/api/comments",
         {
           content: this.state.content,
           issueId: this.state.issueId,
@@ -34,7 +34,7 @@ class CommList extends React.Component {
       .then(() => {
         this.setState({ content: "", displayForm: false });
         this.props.clicked()
-       
+
       });
 
   };
@@ -66,7 +66,7 @@ class CommList extends React.Component {
                   type="text"
                 />
               </div>
-              
+
               <input
                 className="btn btn-primary"
                 type="submit"
@@ -81,4 +81,4 @@ class CommList extends React.Component {
 }
 
 export default CommList
-;
+  ;

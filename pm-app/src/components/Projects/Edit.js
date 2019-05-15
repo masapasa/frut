@@ -15,7 +15,7 @@ class EditProject extends React.Component {
 
     axios
       .put(
-        `http://localhost:5000/api/projects/${id}`,
+        (process.env.HEROKU_URL || "http://localhost:5000") + `/api/projects/${id}`,
         {
           title: this.state.title,
           description: this.state.description
@@ -42,7 +42,7 @@ class EditProject extends React.Component {
     return (
       <div>
         <hr />
-        
+
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label>title:</label>

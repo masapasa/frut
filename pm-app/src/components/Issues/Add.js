@@ -23,7 +23,7 @@ class AddIssue extends React.Component {
     const project = this.props.project._id;
     axios
       .post(
-        "http://localhost:5000/api/issues",
+        (process.env.HEROKU_URL || "http://localhost:5000") + "/api/issues",
         {
           title: this.state.title,
           description: this.state.description,
@@ -77,37 +77,37 @@ class AddIssue extends React.Component {
                 />
               </div>
               <div>
-              <label>type</label>
+                <label>type</label>
                 <select name="type" onChange={this.handleChange}>
-                  <option  value="bug/issue">bug/issue</option>
-                  <option  value="enhancement">enhancement</option>
-                  <option  value="feature">feature</option>
-                  <option  value="documentation">documentation</option>
+                  <option value="bug/issue">bug/issue</option>
+                  <option value="enhancement">enhancement</option>
+                  <option value="feature">feature</option>
+                  <option value="documentation">documentation</option>
                 </select></div>
-                <div>
-              <label>status</label>
+              <div>
+                <label>status</label>
                 <select name="status" onChange={this.handleChange}>
-                  <option  value="open">open</option>
-                  <option  value="assigned">assigned</option>
-                  <option  value="duplicated">duplicated</option>
-                  <option  value="closed">closed</option>
-                  <option  value="pending review'">pending review'</option>
+                  <option value="open">open</option>
+                  <option value="assigned">assigned</option>
+                  <option value="duplicated">duplicated</option>
+                  <option value="closed">closed</option>
+                  <option value="pending review'">pending review'</option>
                 </select></div>
-                <div>
-              <label>priority</label>
+              <div>
+                <label>priority</label>
                 <select name="priority" onChange={this.handleChange}>
-                  <option  value="immediate">immediate</option>
-                  <option  value="high">high</option>
-                  <option  value="medium">medium</option>
-                  <option  value="low">low</option>
+                  <option value="immediate">immediate</option>
+                  <option value="high">high</option>
+                  <option value="medium">medium</option>
+                  <option value="low">low</option>
                 </select></div>
-                <div>
-              <label>severity</label>
+              <div>
+                <label>severity</label>
                 <select name="severity" onChange={this.handleChange}>
-                  <option  value="critical">critical</option>
-                  <option  value="major">major</option>
-                  <option  value="minor">minor</option>
-                  <option  value="low-impact">low-impact</option>
+                  <option value="critical">critical</option>
+                  <option value="major">major</option>
+                  <option value="minor">minor</option>
+                  <option value="low-impact">low-impact</option>
                 </select></div>
               <input
                 className="btn btn-primary"
