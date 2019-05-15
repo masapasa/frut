@@ -5,6 +5,10 @@ class AddIssue extends React.Component {
   state = {
     title: "",
     description: "",
+    type: "",
+    status: "",
+    priority: "",
+    severity: "",
     displayForm: false
   };
 
@@ -23,13 +27,17 @@ class AddIssue extends React.Component {
         {
           title: this.state.title,
           description: this.state.description,
+          type: this.state.type,
+          status: this.state.status,
+          priority: this.state.priority,
+          severity: this.state.severity,
           project
         },
         { withCredentials: true }
       )
       .then(() => {
         this.props.getProject();
-        this.setState({ title: "", description: "", displayForm: false });
+        this.setState({ title: "", description: "", type: "", status: "", priority: "", severity: "", displayForm: false });
       });
   };
 
@@ -50,10 +58,9 @@ class AddIssue extends React.Component {
           <div>
             <h3>Add Issue</h3>
             <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
+              <div>
                 <label>title:</label>
                 <input
-                  className="form-control"
                   value={this.state.title}
                   onChange={this.handleChange}
                   name="title"
@@ -63,13 +70,45 @@ class AddIssue extends React.Component {
               <div className="form-group">
                 <label>description:</label>
                 <input
-                  className="form-control"
                   value={this.state.description}
                   onChange={this.handleChange}
                   type="text"
                   name="description"
                 />
               </div>
+              <div>
+              <label>type</label>
+                <select name="type" onChange={this.handleChange}>
+                  <option  value="bug/issue">bug/issue</option>
+                  <option  value="enhancement">enhancement</option>
+                  <option  value="feature">feature</option>
+                  <option  value="documentation">documentation</option>
+                </select></div>
+                <div>
+              <label>status</label>
+                <select name="status" onChange={this.handleChange}>
+                  <option  value="open">open</option>
+                  <option  value="assigned">assigned</option>
+                  <option  value="duplicated">duplicated</option>
+                  <option  value="closed">closed</option>
+                  <option  value="pending review'">pending review'</option>
+                </select></div>
+                <div>
+              <label>priority</label>
+                <select name="priority" onChange={this.handleChange}>
+                  <option  value="immediate">immediate</option>
+                  <option  value="high">high</option>
+                  <option  value="medium">medium</option>
+                  <option  value="low">low</option>
+                </select></div>
+                <div>
+              <label>severity</label>
+                <select name="severity" onChange={this.handleChange}>
+                  <option  value="critical">critical</option>
+                  <option  value="major">major</option>
+                  <option  value="minor">minor</option>
+                  <option  value="low-impact">low-impact</option>
+                </select></div>
               <input
                 className="btn btn-primary"
                 type="submit"

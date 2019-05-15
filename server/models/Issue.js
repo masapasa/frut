@@ -19,6 +19,7 @@ const issueSchema = new Schema(
     created: { type: Date },
     dueDate: { type: Date },
     type: {
+      type: String,
       enum: [ 'bug/issue', 'enhancement', 'feature', 'documentation' ],
     },
     project: {

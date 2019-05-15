@@ -35,7 +35,6 @@ class Signup extends React.Component {
   };
   handleUpload = event => {
     const file = event.target.files[0];
-    console.log(file)
     const data = new FormData();
     data.append("imgPath", file);
     upload(data).then(response => {

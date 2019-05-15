@@ -28,7 +28,7 @@ class ProjectsList extends React.Component {
         <div>‚
           {this.state.projects.map(project => {
             return (
-              <div key={project._id}>
+              <div style={{display: "flex", flexDirection: "row", justifyContent:"flex-start"}  } key={project._id}>
                 <Link to={`/projects/${project._id}`}>
                   <h3>{project.title}</h3>
                 </Link>

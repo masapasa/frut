@@ -1,8 +1,10 @@
 const express = require('express')
 const passport = require('passport')
+const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
 const User = require('../models/User')
 const router = express.Router()
+const Email = require("../models/Email")
 
 // Bcrypt to encrypt passwords
 const bcryptSalt = 10
@@ -106,5 +108,36 @@ router.get('/loggedin', (req, res) => {
   return res.json(null)
 })
 router.post('/poster', )
+
+router.post('/send-email', (req, res) => {
+  let { email, subject, message } = req.body;
+  let transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'frutfrutfrut0@gmail.com',
+      pass: process.env.PASS
+    }
+  })
+  Email.create({
+    email: req.body.email,
+    subject: req.body.subject,
+    message: req.body.message,
+    user: req.user._id
+    
+  }).then(email => {
+    res.json(email)
+  })
+  transporter.sendMail({
+    from: '"My Awesome Project 👻" <myawesome@project.com>',
+    to: email, 
+    subject: subject, 
+    text: message,
+    html: `<b>${message}</b>`
+  })
+  .then(info => {
+    res.json(info)
+  })
+  .catch(error => console.log(error));
+});
 
 module.exports = router

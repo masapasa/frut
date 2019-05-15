@@ -52,7 +52,6 @@ class ProjectDetails extends React.Component {
     })
   }
   showInviteBlock = () => {
-    console.log("hi")
     this.setState({
       inviteBlock: !this.state.inviteBlock
     })
@@ -66,29 +65,34 @@ class ProjectDetails extends React.Component {
  
 
     let editBlock = <></>;
-    
+
     if (this.props.user && this.props.user._id === project.user) {
       editBlock = (
-        <div>
-          <EditProject project={project} getDetails={this.getProject} clicked={this.showEditBlock}/>
-          <button
+        <div className="edit-block" >
+          
+          {this.state.editBlock && <EditProject project={project} getDetails={this.getProject} clicked={this.showEditBlock}/>}
+
+        <button style={{ marginTop: "10px" }}
+                        className="btn btn-danger"
+                        onClick={this.showEditBlock} >Edit Project</button>
+          
+            <button
             style={{ marginTop: "10px" }}
             className="btn btn-danger"
             onClick={this.deleteProject}
           >
             Delete project
           </button>
+          <button style={{ marginTop: "10px" }}
+            className="btn btn-primary"
+            onClick={this.showInviteBlock}>Invite</button>
+          
+          {this.state.inviteBlock && <Invitation project={project} />}
+
         </div>
       );
     }
-    let inviteBlock = <></>
-    if (this.props.user && this.props.user._id === project.user) {
-      inviteBlock = (
-        <div>
-          <Invitation />
-        </div>
-      )
-    }
+
 
     return (
       <div>
@@ -107,18 +111,8 @@ class ProjectDetails extends React.Component {
               
             );
           })}
-        {this.state.editBlock && <div> {editBlock} </div>} 
+        <div> {editBlock} </div> 
 
-        <button style={{ marginTop: "10px" }}
-                        className="btn btn-danger"
-                        onClick={this.showEditBlock} >Edit Project</button>
-        <div>
-          <button style={{ marginTop: "10px" }}
-            className="btn btn-primary"
-            onClick={this.showInviteBlock}>Invite</button>
-          
-        </div>
-        {this.state.inviteBlock && <div> {inviteBlock} </div>}
                         
                          
         <AddIssue project={project} getProject={this.getProject} />

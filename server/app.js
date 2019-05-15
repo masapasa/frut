@@ -61,12 +61,12 @@ app.use(
   }),
 )
 
-const index = require("./routes/index");
-app.use("/", index);
 
 const auth = require("./routes/auth");
 app.use("/api", auth);
 
+const index = require("./routes/index");
+app.use("/", index);
 const projects = require("./routes/projects");
 app.use("/api", projects);
 
@@ -75,6 +75,9 @@ app.use("/api", issues);
 
 const comments = require("./routes/comments");
 app.use("/api", comments);
+// const sendEmail = require("./routes/send-email");
+// app.use("/api", sendEmail);
+
 
 
 module.exports = app

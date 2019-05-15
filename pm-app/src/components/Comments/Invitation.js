@@ -1,10 +1,12 @@
 import React from "react";
 import { getUsers } from "../../services/auth";
+import ContactForm from '../ContactForm'
 
 class Invitation extends React.Component {
   state = {
 
-    users: []
+    users: [],
+    // contactBlock: false
    
   }
   componentDidMount() {
@@ -17,14 +19,26 @@ class Invitation extends React.Component {
         })
       })
     }
+    // showContactForm = () => {
+
+    // }
 
   render() {
     const users = this.state.users
+    // let contactBlock = <></>
+    // if (user && user._id === this.props.project.user) {
+ 
     return (
-    <React.Fragment>
-      {users.map(user=> <a href={`mailto:${user.email}`}>
-      <div key={user._id} >{user.username}</div>
-      </a>)}</React.Fragment>
+    <div className="invite-btn">
+      {users.map(user => 
+         <div key={user._id} >
+           
+           <ContactForm user={user} />
+         </div>
+        )}
+        <div>
+          </div>
+      </div>
   )
   }};
 

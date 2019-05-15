@@ -27,6 +27,11 @@ class Navbar extends React.Component {
           <ul>
             <li>Welcome {this.state.loggedIn.username} !</li>
             <li>
+              <Link to="/profile" style={{ textDecoration: "none" }}>
+                Profile
+              </Link>
+            </li>
+            <li>
               <Link to="/projects" style={{ textDecoration: "none" }}>
                 Projects
               </Link>

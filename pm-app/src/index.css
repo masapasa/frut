@@ -12,3 +12,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.invite-btn {
+display: flex;
+justify-content: space-evenly;
+flex-wrap: wrap;
+}
+.edit-block {
+  background-color: rgb(187, 187, 230);
+}
+
+
+

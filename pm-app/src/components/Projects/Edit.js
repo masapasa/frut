@@ -9,7 +9,6 @@ class EditProject extends React.Component {
   };
 
   handleSubmit = event => {
-    console.log('submitted')
     event.preventDefault();
 
     const id = this.props.project._id;

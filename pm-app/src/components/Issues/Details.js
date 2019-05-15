@@ -8,6 +8,11 @@ class IssueDetails extends React.Component {
     title: "",
     description: "",
     comments: "",
+    type: "",
+    status: "",
+    priority: "",
+    severity: "",
+    user: "",
     _id: "",
     editBlock: false
   };
@@ -27,6 +32,10 @@ class IssueDetails extends React.Component {
             title: response.data.title,
             description: response.data.description,
             comments: response.data.comments,
+            type: response.data.type,
+            status: response.data.status,
+            priority: response.data.priority,
+            severity: response.data.severity,
             user: response.data.user,
             _id: response.data._id
           });
@@ -40,10 +49,9 @@ class IssueDetails extends React.Component {
      
       
       render() {
-        const {_id, title, description, comments, user} = this.state
+        const {_id, title, description, type, status, priority, severity, comments, user} = this.state
       let editBlock = <></>;
-
-    if (this.props.user && this.props.user._id === user) {
+      if (this.props.user && this.props.user._id === user) {
       editBlock = (
         <div>
           <EditIssue  id={_id} issueDetails={this.getIssue} clicked={this.showEditBlock} />
@@ -54,8 +62,13 @@ class IssueDetails extends React.Component {
       
     return (
       <div>
-        <h1>{title}</h1>
-        <p>{description}</p>
+        <h1>Title: {title}</h1>
+        <h2>description: {description}</h2>
+        <p>type: {type} </p>
+        <p>status: {status} </p>
+        <p>priority: {priority} </p>
+        <p>severity: {severity} </p>
+        
         <div>
         <CommList issueId={this.state._id} clicked={this.getIssue} />
         {comments && comments.map(comment => {

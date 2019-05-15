@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component} from 'react'
+import { Link } from "react-router-dom";
 import { getProject } from "../services/auth"
 
 export default class Profile extends Component {
@@ -10,7 +11,6 @@ export default class Profile extends Component {
   componentDidMount() {
     
   getProject().then(projects => {
-    console.log(projects)
       this.setState({projects})
     })}
 
@@ -22,9 +22,10 @@ export default class Profile extends Component {
       {this.props.user && <div>
         <img src={this.props.user.imgPath} alt="profileImg"/>
         <h1>{this.props.user.username}</h1>
-        {this.state.projects.map(project => (
-          <p  key={project._id} >{project.title} </p>
-        )
+        {this.state.projects && this.state.projects.map(project => (
+        <div key={project._id}>
+        <Link to={`/projects/${project._id}`}>{project.title}</Link>
+        </div>)
           
         )}
        
