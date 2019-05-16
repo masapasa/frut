@@ -24,7 +24,7 @@ class CommList extends React.Component {
 
     axios
       .post(
-        (process.env.HEROKU_URL || "http://localhost:5000") + "/api/comments",
+        (process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + "/api/comments",
         {
           content: this.state.content,
           issueId: this.state.issueId,

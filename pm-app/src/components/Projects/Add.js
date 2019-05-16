@@ -21,7 +21,7 @@ class AddProject extends React.Component {
 
     axios
       .post(
-        (process.env.HEROKU_URL || "http://localhost:5000") + "/api/projects",
+        (process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + "/api/projects",
         {
           title: this.state.title,
           description: this.state.description

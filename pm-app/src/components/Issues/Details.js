@@ -27,7 +27,7 @@ class IssueDetails extends React.Component {
   getIssue = () => {
     const issueId = this.props.match.params.issueId;
     axios
-      .get((process.env.HEROKU_URL || "http://localhost:5000") + `/api/issues/${issueId}`, {
+      .get((process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + `/api/issues/${issueId}`, {
         withCredentials: true
       })
       .then(response => {

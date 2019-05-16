@@ -10,7 +10,7 @@ class ProjectsList extends React.Component {
 
   getData = () => {
     axios
-      .get((process.env.HEROKU_URL || "http://localhost:5000") + "/api/projects", { withCredentials: true })
+      .get((process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + "/api/projects", { withCredentials: true })
       .then(response => {
         this.setState({
           projects: response.data

@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL: (process.env.HEROKU_URL || "http://localhost:5000") + "/api",
+  baseURL: (process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + "/api",
   withCredentials: true
 });
 

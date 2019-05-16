@@ -23,7 +23,7 @@ export default class Email extends Component {
       subject: this.state.subject,
       message: this.state.message
     }
-    axios.post((process.env.HEROKU_URL || "http://localhost:5000") + '/api/send-email', emailObj, { withCredentials: true }).then(() => { console.log("done") })
+    axios.post((process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + '/api/send-email', emailObj, { withCredentials: true }).then(() => { console.log("done") })
   }
   handleClick = () => {
     this.setState({ display: !this.state.display })

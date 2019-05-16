@@ -18,7 +18,7 @@ class EditIssue extends React.Component {
     const id = this.props.id
     axios
       .put(
-        (process.env.HEROKU_URL || "http://localhost:5000") + `/api/issues/${id}`,
+        (process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + `/api/issues/${id}`,
         {
           title: this.state.title,
           description: this.state.description,

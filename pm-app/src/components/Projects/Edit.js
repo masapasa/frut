@@ -15,7 +15,7 @@ class EditProject extends React.Component {
 
     axios
       .put(
-        (process.env.HEROKU_URL || "http://localhost:5000") + `/api/projects/${id}`,
+        (process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + `/api/projects/${id}`,
         {
           title: this.state.title,
           description: this.state.description

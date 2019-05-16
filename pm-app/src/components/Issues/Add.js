@@ -23,7 +23,7 @@ class AddIssue extends React.Component {
     const project = this.props.project._id;
     axios
       .post(
-        (process.env.HEROKU_URL || "http://localhost:5000") + "/api/issues",
+        (process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + "/api/issues",
         {
           title: this.state.title,
           description: this.state.description,
