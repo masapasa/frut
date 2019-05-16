@@ -16,7 +16,7 @@ class ProjectDetails extends React.Component {
     const id = this.props.match.params.id;
 
     axios
-      .get(`http://localhost:5000/api/projects/${id}`, {
+      .get((process.env.HEROKU_URL || "http://localhost:5000") + `/api/projects/${id}`, {
         withCredentials: true
       })
       .then(response => {
@@ -29,7 +29,7 @@ class ProjectDetails extends React.Component {
   deleteProject = () => {
     const id = this.props.match.params.id;
 
-    axios.delete(`http://localhost:5000/api/projects/${id}`).then(response => {
+    axios.delete((process.env.HEROKU_URL || "http://localhost:5000") + `/api/projects/${id}`).then(response => {
       // redirects to /projects
       this.props.history.push("/projects");
     });
