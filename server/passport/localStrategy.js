@@ -37,7 +37,7 @@ passport.use(
       callbackURL: 'http://localhost:5000/api/github/callback'
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
+      console.log("done");
       User.findOne({ githubId: profile.id })
         .then(user => {
           if (user) return done(null, user);

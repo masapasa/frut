@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import EditIssue from './Edit'
 import CommList from '../Comments/CommList'
-import { getIssues } from "../../services/auth";
+import { getIssues, githubScraping } from "../../services/auth";
 import { Link } from 'react-router-dom'
 
 class IssueDetails extends React.Component {
@@ -18,6 +18,7 @@ class IssueDetails extends React.Component {
     _id: "",
     matchedIssues: [],
     editBlock: false,
+    githubdata: []
   };
 
   // componentDidMount() {
@@ -33,6 +34,11 @@ class IssueDetails extends React.Component {
       .then(response => {
         getIssues(response.data.type).then(issues => {
           this.setState({ matchedIssues: issues })
+
+          githubScraping(response.data.type).then(data => {
+            this.setState({ githubdata: data }, () => console.log(this.state.githubdata))
+
+          })
 
         })
         this.setState({
@@ -59,7 +65,7 @@ class IssueDetails extends React.Component {
     if (this.props.match.params.issueId !== this.state._id) {
       this.getIssue()
     }
-    const { _id, title, description, type, status, priority, severity, comments, user, matchedIssues } = this.state
+    const { _id, title, description, type, status, priority, severity, comments, user, matchedIssues, githubdata } = this.state
     let editBlock = <></>;
     if (this.props.user && this.props.user._id === user) {
       editBlock = (
@@ -86,6 +92,9 @@ class IssueDetails extends React.Component {
         <p>status: {status} </p>
         <p>priority: {priority} </p>
         <p>severity: {severity} </p>
+        <p>{this.state.githubdata && this.state.githubdata.items && this.state.githubdata.items.map(data => (
+          <Link key={data._id} to={`${data.url}`} > {data.title} </Link>
+        ))} </p>
 
 
         <div>

@@ -16,11 +16,12 @@ const issueSchema = new Schema(
       required: true
     },
     description: { type: String },
+    tag: { type: String },
     created: { type: Date },
     dueDate: { type: Date },
     type: {
       type: String,
-      enum: [ 'bug/issue', 'enhancement', 'feature', 'documentation' ],
+      enum: ['bug/issue', 'enhancement', 'feature', 'documentation'],
     },
     project: {
       type: Schema.Types.ObjectId,
@@ -28,23 +29,23 @@ const issueSchema = new Schema(
     },
     comments: [
       {
-        type: [ Schema.Types.ObjectId ],
+        type: [Schema.Types.ObjectId],
         ref: 'Comment',
       },
     ],
     status: {
       type: String,
-      enum: [ 'open', 'assigned', 'duplicated', 'closed', 'pending review' ],
+      enum: ['open', 'assigned', 'duplicated', 'closed', 'pending review'],
       default: 'open',
     },
     priority: {
       type: String,
-      enum: [ 'immediate', 'high', 'medium', 'low' ],
+      enum: ['immediate', 'high', 'medium', 'low'],
       default: 'low',
     },
     severity: {
       type: String,
-      enum: [ 'critical', 'major', 'minor', 'low-impact' ],
+      enum: ['critical', 'major', 'minor', 'low-impact'],
       default: 'minor',
     },
   },

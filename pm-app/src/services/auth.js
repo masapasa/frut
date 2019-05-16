@@ -43,4 +43,7 @@ const getIssues = (type) => {
 const githubAuth = () => {
   return service.get('/github').then(res => res.data)
 }
-export { signup, login, logout, loggedin, getUsers, upload, getProject, getIssues, githubAuth };
+const githubScraping = (type) => {
+  return axios.get(`https://api.github.com/search/issues?q=is:pr%20label:${type}%20org:facebook%20repo:react/scrape-it`).then(res => res.data)
+}
+export { signup, login, logout, loggedin, getUsers, upload, getProject, getIssues, githubAuth, githubScraping };
