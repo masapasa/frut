@@ -75,8 +75,8 @@ class IssueDetails extends React.Component {
         <h1>Title: {title}</h1>
         <h2>description: {description}</h2>
         <div style={{ left: '100px', position: 'absolute' }}>
-          {matchedIssues.map((issue) => {
-            return <p>
+          {matchedIssues.filter((issue) => issue._id !== this.state._id).map((issue) => {
+            return <p>Issues with same type:
               <Link key={issue._id} to={`/issues/${issue._id}`} >{issue.title} </Link >
             </p>
           })}

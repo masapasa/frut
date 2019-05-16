@@ -37,7 +37,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-  const { username, password, email, firstName, lastName, imgPath, projects  } = req.body
+  const { username, password, email, firstName, lastName, imgPath, projects } = req.body
   if (username === '' || password === '') {
     return res.status(422).json({ message: 'Indicate username and password' })
   }
@@ -55,15 +55,22 @@ router.post('/signup', async (req, res) => {
     password: hashPass,
     email: email,
     firstName: firstName,
-    lastName:lastName,
+    lastName: lastName,
     imgPath: imgPath,
-    projects: projects 
+    projects: projects
   })
   req.login(newUser, () => {
     return res.status(200).json(newUser)
   })
 })
-
+router.get('/github', passport.authenticate('github'));
+router.get(
+  '/github/callback',
+  passport.authenticate('github', {
+    successRedirect: 'http://localhost:3000/profile',
+    failureRedirect: '/'
+  })
+);
 
 router.get('/users', (req, res) => {
   User.find().then(users => {
@@ -75,8 +82,8 @@ router.get('/users', (req, res) => {
 
 router.post('/edit/:_id', async (req, res) => {
   const { _id } = req.params
-  const { username, email, firstName, lastName, imgPath, projects  } = req.body
-  const updateUser = await User.findByIdAndUpdate(_id, { username, email, firstName, lastName, imgPath, projects  }, { new: true })
+  const { username, email, firstName, lastName, imgPath, projects } = req.body
+  const updateUser = await User.findByIdAndUpdate(_id, { username, email, firstName, lastName, imgPath, projects }, { new: true })
   return res.status(200).json(updateUser)
 })
 
@@ -88,7 +95,7 @@ router.post('/upload', uploader.single('imgPath'), (req, res) => {
     return res.status(500).json({ message: 'No file uploaded' })
   }
 
-  res.json({imgPath: req.file.secure_url})
+  res.json({ imgPath: req.file.secure_url })
   // User.findByIdAndUpdate(req.user._id, { imgPath: req.file.secure_url }, { new: true })
   //   .then((udpatedUser) => {
   //     return res.json(udpatedUser)
@@ -107,7 +114,7 @@ router.get('/loggedin', (req, res) => {
   if (req.isAuthenticated()) return res.json(req.user)
   return res.json(null)
 })
-router.post('/poster', )
+router.post('/poster')
 
 router.post('/send-email', (req, res) => {
   let { email, subject, message } = req.body;
@@ -123,21 +130,21 @@ router.post('/send-email', (req, res) => {
     subject: req.body.subject,
     message: req.body.message,
     user: req.user._id
-    
+
   }).then(email => {
     res.json(email)
   })
   transporter.sendMail({
     from: '"My Awesome Project 👻" <myawesome@project.com>',
-    to: email, 
-    subject: subject, 
+    to: email,
+    subject: subject,
     text: message,
     html: `<b>${message}</b>`
   })
-  .then(info => {
-    res.json(info)
-  })
-  .catch(error => console.log(error));
+    .then(info => {
+      res.json(info)
+    })
+    .catch(error => console.log(error));
 });
 
 module.exports = router

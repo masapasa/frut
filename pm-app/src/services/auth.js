@@ -40,4 +40,7 @@ const getProject = () => {
 const getIssues = (type) => {
   return service.get(`/issues?type=${type}`).then(res => res.data)
 }
-export { signup, login, logout, loggedin, getUsers, upload, getProject, getIssues };
+const githubAuth = () => {
+  return service.get('/github').then(res => res.data)
+}
+export { signup, login, logout, loggedin, getUsers, upload, getProject, getIssues, githubAuth };

@@ -1,11 +1,11 @@
 import React from "react";
-import { signup, upload } from "../../services/auth";
+import { signup, upload, githubAuth } from "../../services/auth";
 
 class Signup extends React.Component {
   state = {
     username: "",
     password: "",
-    email:"",
+    email: "",
     imgPath: ""
   };
 
@@ -28,7 +28,7 @@ class Signup extends React.Component {
         username: "",
         password: "",
         email: "",
-        imgPath:""
+        imgPath: ""
       })
       this.props.history.push('/profile')
     });
@@ -40,6 +40,14 @@ class Signup extends React.Component {
     upload(data).then(response => {
       this.setState({ imgPath: response.imgPath });
     });
+  }
+
+  githubLogin = () => {
+    githubAuth().then(res => (
+      console.log("success")
+    )).catch(err => (
+      console.log("error")
+    ))
   }
 
   render() {
@@ -78,7 +86,8 @@ class Signup extends React.Component {
           </div>
           <input type="submit" value="signup" />
         </form>
-      </div>
+        <a href="http://localhost:5000/api/github" >Github login </a>
+      </div >
     );
   }
 }

@@ -15,6 +15,8 @@ class ProjectDetails extends React.Component {
   getProject = () => {
     const id = this.props.match.params.id;
 
+    //alert((process.env.REACT_APP_HEROKU_URL || "http://localhost:5000"))
+
     axios
       .get((process.env.REACT_APP_HEROKU_URL || "http://localhost:5000") + `/api/projects/${id}`, {
         withCredentials: true

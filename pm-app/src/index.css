@@ -20,6 +20,10 @@ flex-wrap: wrap;
 .edit-block {
   background-color: rgb(187, 187, 230);
 }
+.profile-img {
+  height: 200px;
+  width: 200px
+}
 
 
 
