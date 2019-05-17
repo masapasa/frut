@@ -36,7 +36,7 @@ class IssueDetails extends React.Component {
           this.setState({ matchedIssues: issues })
 
           githubScraping(response.data.type).then(data => {
-            this.setState({ githubdata: data }, () => console.log(this.state.githubdata))
+            this.setState({ githubdata: data })
 
           })
 
@@ -80,12 +80,12 @@ class IssueDetails extends React.Component {
       <div>
         <h1>Title: {title}</h1>
         <h2>description: {description}</h2>
-        <div style={{ left: '100px', position: 'absolute' }}>
+        <div style={{ left: '100px', position: 'absolute' }}>Issues with same type:
           {matchedIssues.filter((issue) => issue._id !== this.state._id).map((issue) => {
-            return <p>Issues with same type:
-              <Link key={issue._id} to={`/issues/${issue._id}`} >{issue.title} </Link >
-            </p>
-          })}
+          return <p>
+            <Link key={issue._id} to={`/issues/${issue._id}`} >{issue.title} </Link >
+          </p>
+        })}
         </div>
         <p>type: {type} </p>
 
@@ -93,7 +93,7 @@ class IssueDetails extends React.Component {
         <p>priority: {priority} </p>
         <p>severity: {severity} </p>
         <p>{this.state.githubdata && this.state.githubdata.items && this.state.githubdata.items.map(data => (
-          <Link key={data._id} to={`${data.url}`} > {data.title} </Link>
+          <a href={`${data.url}`} >{data.title}</a>
         ))} </p>
 
 
